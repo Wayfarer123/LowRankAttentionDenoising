@@ -115,7 +115,7 @@
         $$Q_1 = X W_{Q_1}, K_1 = X W_{K_1}, \textcolor{red}{Q_2 = XW_{Q_2}^{down} W_{Q_2}^{up}, K_2 = XW_{K_2}^{down} W_{K_2}^{up}}$$
         $$W_{Q_1}, W_{K_1} \in \mathbb{R}^{d_{model} \times d}; \textcolor{red}{W_{Q_2}^{down}, W_{K_2}^{down} \in \mathbb{R}^{d_{model} \times r}; W_{Q_2}^{up}, W_{K_2}^{up} \in \mathbb{R}^{r \times d}} $$
         $$A_1 = \text{softmax}\left(\frac{Q_1 K_1^T}{\sqrt{d}}\right), A_2 = \text{softmax}\left(\frac{Q_2 K_2^T}{\textcolor{red}{\sqrt{d_2}}}\right), A_3 = \text{repeat}\left(\frac{1}{N}\sum\limits_{i=1}^{N}A_1[i,:], N\right)$$
-        $$\text{ as linear layer of shape} [d_{in}, d_{out}] \text{ is initialized with } w[i,j] \sim U[-\sqrt{d_{in}}, \sqrt{d_{in}}]$$ $$\mathbb{D}[W_{Q_2}^{down} W_{Q_2}^{up}[i,j]] = \mathbb{D}[W_{K_2}^{down} W_{K_2}^{up}[i,j]] = \frac{1}{3 d_{model}}\cdot \frac{1}{3 r}\cdot r = \frac{1}{9}\mathbb{D}[Q_1[i,j]]$$
+        $$\text{ as linear layer of shape} [d_{in}, d_{out}] \text{ is initialized with } w[i,j] \sim U[-\sqrt{d_{in}}, \sqrt{d_{in}}]$$ $$\mathbb{D}[W_{Q_2}^{down} W_{Q_2}^{up}[i,j]] = \mathbb{D}[W_{K_2}^{down} W_{K_2}^{up}[i,j]] = \frac{1}{3 d_{model}}\cdot \frac{1}{3 r}\cdot r = \frac{1}{9}\mathbb{D}[W_{Q_1}[i,j]]$$
         $$\Longrightarrow \textcolor{red}{d_2 = \frac{d}{81}},~~ \text{LowRankDINTAttention} = \left(\lambda\cdot A_3 + A_1 - \lambda\cdot A_2 \right) V$$
 
     \end{block}
