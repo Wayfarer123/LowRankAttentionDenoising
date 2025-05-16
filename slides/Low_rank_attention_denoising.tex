@@ -124,15 +124,32 @@
 
 
 \begin{frame}
-    \frametitle{Experiments}
+    \frametitle{Preliminary experiments}
+
     SFT of Llama-3.2-1B model\footnote{https://huggingface.co/meta-llama/Llama-3.2-1B} on OpenMathInstruct-2 dataset\footnote{https://huggingface.co/datasets/nvidia/OpenMathInstruct-2}
     \begin{center}
-        % \includegraphics[scale=0.35]{...}
-        HERE SHOULD BE TRAINING CURVES
+        \includegraphics[scale=0.35]{../images/Loss_1M_3epochs.png}
     \end{center}
         
 \end{frame}
 
+\begin{frame}
+    \frametitle{Preliminary results \& plans}
+    \begin{block}{Obeservations}
+        \begin{enumerate}
+            \item Training loss value seems promising
+            \item Test metrics are very questionable at the moment, might be a bug in the code
+        \end{enumerate}
+    \end{block}
+    \begin{block}{Plans}
+        \begin{enumerate}
+            \item Examine testing pipeline
+            \item Measure the entropy of attention weight distiribution, compare with original model
+            \item Evaluate cross-domain impact of proposed denoiser
+            \item Apply to larger models and different datasets
+        \end{enumerate}
+    \end{block}
+\end{frame}
 
 
 \end{document}
