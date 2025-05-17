@@ -16,6 +16,7 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{subcaption}
+\usepackage{xcolor}
 
 %\usepackage{subfigure}
 \DeclareMathOperator*{\argmax}{\arg\!\max}
@@ -49,13 +50,25 @@ pdfauthor={Nikita Okhotnikov},
     ....
 
 \section{Related Work}
-    ...
 \subsection{Attention mechanism}
-    ....
+    Most of the modern large language models are based primarily on the self-attention mechanism and transformer architecture \cite{vaswani2023attentionneed}. Each attention layer consists of multiple <<heads>>, which are applied to different parts of the input. Each head acts as follows:
+    $$Q = X W_Q, K = X W_K, V = X W_V$$
+    $$\text{Attention} = \text{softmax}\left(\frac{Q K^T}{\sqrt{d}}\right) V$$
+    where $X \in \mathbb{R}^{N \times d_{model}}$ is the input embedding from previous layers, $W_Q, W_K, W_V \in \mathbb{R}^{d_{model} \times d}$ -- learnable projection matrices
+
 \subsection{Differential attention}
-    ....
+    Based on the idea of adaptive noise cancellation, the authors of \cite{ye2025differentialtransformer} proposed a novel attention mechanism modification that use additional learnable parameters to cancel out the noise in the attention weights.
+    Specifically, given the input $X\in \mathbb{R}^{N\times d_{model}}$ and projection matrices $W_Q, W_K \in \mathbb{R}^{d_{model} \times 2d}, W_V \in \mathbb{R}^{d_{model} \times d}$, the modified attention mechanism is defined as follows:
+    $$[Q_1, Q_2] = XW_Q, [K_1, K_2] = XW_K, V = XW_V$$
+
+    $$\text{DIFFAttention} = \left(\text{softmax}\left(\frac{Q_1 K_1^T}{\sqrt{d}}\right) - \lambda\cdot \text{softmax}\left(\frac{Q_2 K_2^T}{\sqrt{d}}\right)\right)V, ~ \lambda \in (0,1) $$
+
+    ... // something about broken normalisation and weird labmda initialization (unstability) 
+    
 \subsection{DINT attention}
-    ....
+    DINT attention \cite{cang2025dinttransformer} extends differential attention idea by <<integral>> mechanism, tackling the normalisation and lambda initialization sensitivity problem
+
+    TODO
     
 
 \section{Low rank attention denoising}
