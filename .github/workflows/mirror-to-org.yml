@@ -1,0 +1,20 @@
+name: Mirror to org
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mirror to organization repo
+        run: |
+          git remote add org https://x-access-token:${{ secrets.ORG_PAT }}@github.com/intsystems/LowRankAttentionDenoising.git
+          git push org --mirror
